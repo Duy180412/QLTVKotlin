@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginHorizontal="20dp"
     android:gravity="center"
-    tools:context=".feature.login.LoginActivity">
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -17,7 +15,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp" />
 
     <EditText
         android:id="@+id/idlogin"
@@ -25,31 +23,31 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
         android:ems="10"
-        android:padding="10dp"
         android:hint="Account"
         android:inputType="text"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:padding="10dp" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"/>
+        android:layout_height="3dp" />
 
     <EditText
         android:id="@+id/pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
-        android:padding="10dp"
         android:ems="10"
         android:hint="Pass"
         android:inputType="text"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:padding="10dp" />
 
     <Button
         android:id="@+id/buttonlogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
         android:text="Login"
-       />
+        android:textAllCaps="false" />
 
 </LinearLayout>

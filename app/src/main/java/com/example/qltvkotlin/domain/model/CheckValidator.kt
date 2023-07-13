@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.qltvkotlin.domain.observable.IDestroyObsever
 import com.example.qltvkotlin.domain.observable.Signal
-import com.example.qltvkotlin.feature.presentation.extension.cast
+import com.example.qltvkotlin.presentation.extension.cast
 import com.google.android.material.textfield.TextInputLayout
 
 
@@ -56,4 +56,19 @@ class MessageShow {
     val delFailureMain = " Không Thể Xóa Ở Danh Sách Chính "
     val undoSuccess = "Đã Hoàn Tác "
     val undoFailure = "Không Thể Hoàn Tác "
+}
+
+enum class MessageId(val value: String) {
+    errorSystem(" Lỗi hệ thống"),
+    charsEmpty(" Không thể để trống các mục bắt buộc"),
+    isExist(" Đã tồn tại "),
+    wrongFormat(" Không chấp nhận kiểu giá trị này"),
+    saveHasImage(" Đã lưu có hình ảnh"),
+    saveNoImage(" Đã lưu không có hình ảnh"),
+    delSuccess(" Đã Xóa Thành Công "),
+    delFailure(" Không Thể Xóa "),
+    delSuccessMain(" Đã Xóa Thành Công Ở Danh Sách Chính "),
+    delFailureMain(" Không Thể Xóa Ở Danh Sách Chính "),
+    undoSuccess("Đã Hoàn Tác "),
+    undoFailure("Không Thể Hoàn Tác "),
 }

@@ -1,7 +1,7 @@
 package com.example.qltvkotlin.domain.model
 
 import android.util.Log
-import com.example.qltvkotlin.feature.presentation.extension.dateFromString
+import com.example.qltvkotlin.presentation.extension.dateFromString
 import java.util.Calendar
 import java.util.Date
 

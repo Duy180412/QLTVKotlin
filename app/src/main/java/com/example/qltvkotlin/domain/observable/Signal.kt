@@ -3,7 +3,7 @@ package com.example.qltvkotlin.domain.observable
 import android.widget.EditText
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.example.qltvkotlin.feature.presentation.extension.cast
+import com.example.qltvkotlin.presentation.extension.cast
 
 interface Signal {
     fun subscribe(subcription: () -> Unit): AutoCloseable

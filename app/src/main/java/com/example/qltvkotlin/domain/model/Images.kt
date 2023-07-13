@@ -1,7 +1,7 @@
 package com.example.qltvkotlin.domain.model
 
 import com.example.qltvkotlin.domain.observable.Signal
-import com.example.qltvkotlin.feature.presentation.extension.cast
+import com.example.qltvkotlin.presentation.extension.cast
 
 class Images(images: IImage) : IImage, Updatable, HasIsValid, Validable, GetImage,
     Signal by Signal.MultipleSubscription() {

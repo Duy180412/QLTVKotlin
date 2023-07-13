@@ -1,7 +1,7 @@
 package com.example.qltvkotlin.domain.repo
 
 import com.example.qltvkotlin.data.model.DocGiaDTO
-import com.example.qltvkotlin.datasource.roomdata.ThuVienDataRepo
+import com.example.qltvkotlin.data.datasource.roomdata.ThuVienDataRepo
 import com.example.qltvkotlin.domain.model.IDocGia
 import com.example.qltvkotlin.domain.model.IDocGiaGet
 import com.example.qltvkotlin.domain.model.IDocGiaItem
@@ -11,7 +11,7 @@ import com.example.qltvkotlin.domain.model.createImagesFromUrl
 import com.example.qltvkotlin.domain.model.getDateNow
 import com.example.qltvkotlin.feature.helper.Role
 import com.example.qltvkotlin.feature.helper.spinner.IItemSpinner
-import com.example.qltvkotlin.feature.presentation.extension.dateFromString
+import com.example.qltvkotlin.presentation.extension.dateFromString
 
 
 class DocGiaRepo {
