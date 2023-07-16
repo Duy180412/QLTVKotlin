@@ -8,7 +8,7 @@ import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.qltvkotlin.feature.main.muonthue.add.DialogProvider
+import com.example.qltvkotlin.domain.helper.DialogProvider
 
 interface AppPermissionOwer {
     val appPermission: AppPermission

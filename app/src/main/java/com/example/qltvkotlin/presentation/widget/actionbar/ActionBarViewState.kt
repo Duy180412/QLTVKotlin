@@ -7,13 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.qltvkotlin.R
 import com.example.qltvkotlin.databinding.TopbarViewBinding
-import com.example.qltvkotlin.feature.main.docgia.add.AddDocGiaFragment
-import com.example.qltvkotlin.feature.main.docgia.info.InfoDocGiaFragment
-import com.example.qltvkotlin.feature.main.muonthue.add.AddMuonThueFragment
-import com.example.qltvkotlin.feature.main.sach.addsach.AddSachFragment
-import com.example.qltvkotlin.feature.main.sach.infosach.InfoSachFragment
-import com.example.qltvkotlin.presentation.extension.onClick
 import com.example.qltvkotlin.domain.datastructure.pairLookupOf
+import com.example.qltvkotlin.domain.usecase.themmuontra.ThemMuonThueFragment
+import com.example.qltvkotlin.presentation.extension.onClick
+import com.example.qltvkotlin.presentation.feature.adddocgia.ThemDocGiaFragment
+import com.example.qltvkotlin.presentation.feature.addsach.ThemSachFragment
+import com.example.qltvkotlin.presentation.feature.docgiainfo.InfoDocGiaFragment
+import com.example.qltvkotlin.presentation.feature.infosach.ThongTinSachFragment
 import kotlin.reflect.KClass
 
 class ActionBarViewState(
@@ -25,11 +25,11 @@ class ActionBarViewState(
 
     private var actionBarSate: ActionBarSate
     private val routing = pairLookupOf<KClass<out Fragment>, ActionBarSate>(
-        AddSachFragment::class to ActionBarSate(R.string.title_them_sach, true),
-        InfoSachFragment::class to ActionBarSate(R.string.title_info_sach),
-        AddDocGiaFragment::class to ActionBarSate(R.string.title_them_docgia,true),
+        ThemSachFragment::class to ActionBarSate(R.string.title_them_sach, true),
+        ThongTinSachFragment::class to ActionBarSate(R.string.title_info_sach),
+        ThemDocGiaFragment::class to ActionBarSate(R.string.title_them_docgia, true),
         InfoDocGiaFragment::class to ActionBarSate(R.string.title_info_docgia),
-        AddMuonThueFragment::class to ActionBarSate(R.string.title_them_muon,true)
+        ThemMuonThueFragment::class to ActionBarSate(R.string.title_them_muon, true)
 
     )
 

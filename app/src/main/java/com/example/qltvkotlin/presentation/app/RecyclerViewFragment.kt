@@ -3,8 +3,8 @@ package com.example.qltvkotlin.presentation.app
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.example.qltvkotlin.feature.helper.Results
 import com.example.qltvkotlin.presentation.extension.launch
+import com.example.qltvkotlin.presentation.model.Results
 
 abstract class RecyclerViewFragment(contentLayoutId: Int) : MainFragment(contentLayoutId) {
     abstract override val viewmodel: FragmentViewVM

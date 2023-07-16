@@ -56,6 +56,10 @@ interface IDestroyObsever : DefaultLifecycleObserver {
     @Throws(Exception::class)
     fun onDestroyed()
 }
-fun EditText.bindOnChang(){
+
+fun EditText.bindOnChang() {
     this.cast<Signal>()
 }
+
+fun signal() = Signal.MultipleSubscription()
+fun closable() = Signal.Bags()

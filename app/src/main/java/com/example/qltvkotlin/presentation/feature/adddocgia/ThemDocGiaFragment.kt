@@ -3,130 +3,81 @@ package com.example.qltvkotlin.presentation.feature.adddocgia
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import com.example.qltvkotlin.R
-import com.example.qltvkotlin.data.datasource.bo.DocGiaEditable
 import com.example.qltvkotlin.databinding.FragmentAddDocGiaBinding
-import com.example.qltvkotlin.domain.model.HasChange
-import com.example.qltvkotlin.domain.model.IDocGia
-import com.example.qltvkotlin.domain.model.IDocGiaGet
-import com.example.qltvkotlin.domain.model.IDocGiaSet
-import com.example.qltvkotlin.domain.model.IsImageUri
-import com.example.qltvkotlin.domain.model.bindOnChange
-import com.example.qltvkotlin.domain.model.checkAndShowError
-import com.example.qltvkotlin.presentation.app.NavigationFragment
+import com.example.qltvkotlin.domain.enumeration.Command
+import com.example.qltvkotlin.domain.enumeration.HoanTacCmd
+import com.example.qltvkotlin.domain.enumeration.LuuDocGiaCmd
+import com.example.qltvkotlin.domain.enumeration.RemoveCmd
+import com.example.qltvkotlin.domain.enumeration.SelectPhotoCmd
+import com.example.qltvkotlin.presentation.app.BaseFragment
 import com.example.qltvkotlin.presentation.extension.launch
-import com.example.qltvkotlin.presentation.extension.viewBinding
-import com.example.qltvkotlin.presentation.extension.bindTo
-import com.example.qltvkotlin.presentation.extension.cast
 import com.example.qltvkotlin.presentation.extension.onClick
-import com.example.qltvkotlin.presentation.feature.help.AddNewDocGia
-import com.example.qltvkotlin.presentation.widget.view.SelectDateTimeAction
+import com.example.qltvkotlin.presentation.extension.viewBinding
 
-class ThemDocGiaFragment : NavigationFragment(R.layout.fragment_add_doc_gia) {
+class ThemDocGiaFragment : BaseFragment(R.layout.fragment_add_doc_gia) {
 
     private val binding by viewBinding(FragmentAddDocGiaBinding::bind)
-    override val viewmodel by viewModels<VM>()
+    private val viewModel by viewModels<VM>()
+    override val viewmodel: BaseViewModel get() = viewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        editTextOnChange()
-        takePhoto()
-        viewmodel.newDocGia.observe(viewLifecycleOwner) {
-            bindWhenOnChange(it.cast<IDocGiaSet>()!!)
+        val adapter = ComponentAdapter()
+
+        viewModel.components.observe(viewLifecycleOwner) {
+            adapter.submit(it)
         }
-    }
 
-    override fun clickEditAndSave(it: View) {
-        viewmodel.saveDocGia()
-    }
-
-
-    override fun getCheck(): () -> Boolean {
-        return { viewmodel.checkHasChange() }
-    }
-
-
-    private fun takePhoto() {
-        binding.camera.onClick(
-            appPermission.checkPermissonCamera(
-                takePhotoAction.fromCamera { viewmodel.setPhoto(it) })
-        )
-        binding.thuvien.onClick(takePhotoAction.fromLibrary {
-            viewmodel.setPhoto(it)
-        })
-    }
-
-    private fun editTextOnChange() {
-        val value = viewmodel.newDocGia.value.cast<IDocGiaSet>()!!
-        binding.cmndNhap.bindTo { value.cmnd }
-        binding.tendocgiaNhap.bindTo { value.tenDocGia }
-        binding.ngayhethanNhap.bindTo { value.ngayHetHan }
-        binding.sdtNhap.bindTo { value.sdt }
-        binding.soluongmuonNhap.bindTo { value.soLuongMuon }
-        binding.ngayhethanNhap.onClick(SelectDateTimeAction(value.ngayHetHan))
-    }
-
-
-    private fun bindWhenOnChange(docGia: IDocGiaSet) {
-        binding.avatar.setAvatar(docGia.images)
-        docGia.cmnd.also { it ->
-            checkAndShowError(it, binding.cmnd)
-            bindOnChange(this, it) {
-                checkAndShowError(it, binding.cmnd)
-            }
+        adapter.onCommand = {
+            viewModel.execute(it)
         }
-        docGia.tenDocGia.also { it ->
-            checkAndShowError(it, binding.tendocgia)
-            bindOnChange(this, it) {
-                checkAndShowError(it, binding.tendocgia)
+
+        binding.btnLuu.onClick {
+            viewModel.execute(LuuDocGiaCmd)
+        }
+        binding.btnHoanTac.onClick {
+            viewModel.execute(HoanTacCmd)
+        }
+
+        binding.rvList.adapter = adapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.tryFetch()
+    }
+
+    class VM(
+        private val fetchThemDocGiaFieldsCase: FetchThemDocGiaFieldsCase = FetchThemDocGiaFieldsCase(),
+        private val selectPhotoCase: SelectPhotoCase = SelectPhotoCase(),
+        private val luuDocGiaCase: LuuDocGiaCase = LuuDocGiaCase(),
+        private val removeFieldCase: RemoveFieldCase = RemoveFieldCase(),
+        private val hoanTacFieldCase: HoanTacFieldCase = HoanTacFieldCase(),
+    ) : BaseViewModel() {
+        val components = fetchThemDocGiaFieldsCase.result
+
+        fun tryFetch() {
+            if (fetchThemDocGiaFieldsCase.shouldFetch()) launch {
+                fetchThemDocGiaFieldsCase()
             }
         }
 
-        docGia.ngayHetHan.also { it ->
-            checkAndShowError(it, binding.ngayhethan)
-            bindOnChange(this, it) {
-                checkAndShowError(it, binding.ngayhethan)
+        fun execute(it: Command) {
+            when (it) {
+                is SelectPhotoCmd -> launch { selectPhotoCase(it.field) }
+                is LuuDocGiaCmd -> launch { luuDocGiaCase(components.value.orEmpty()) }
+                is RemoveCmd<*> -> launch {
+                    removeFieldCase(
+                        it.item as EditableField,
+                        components.value.orEmpty()
+                    )
+                }
+
+                is HoanTacCmd -> launch { hoanTacFieldCase(components.value.orEmpty()) }
             }
-        }
-        docGia.sdt.also { it ->
-            checkAndShowError(it, binding.sdt)
-            bindOnChange(this, it) {
-                checkAndShowError(it, binding.sdt)
-            }
-        }
-        docGia.images.also { it ->
-            bindOnChange(this, it) {
-                binding.avatar.setAvatar(it)
-            }
-        }
-
-
-    }
-
-    class VM : BaseViewModel() {
-        var newDocGia = MutableLiveData<IDocGia>()
-        fun checkHasChange(): Boolean {
-            return newDocGia.value.cast<HasChange>()?.hasChange()!!
-        }
-
-        init {
-            newDocGia.value = DocGiaEditable(object : IDocGiaGet {})
-        }
-
-        fun saveDocGia() {
-            val value = newDocGia.value.cast<IDocGiaSet>() ?: return
-            launch(error) {
-                val addNewDocGia = AddNewDocGia(value)
-                addNewDocGia()
-                successAndFinish.postValue("Đã Lưu Đọc Giả Thành Công")
-            }
-        }
-
-        fun setPhoto(it: IsImageUri) {
-            val value = this.newDocGia.value.cast<IDocGiaSet>()
-            value?.images?.update(it)
         }
     }
 }
+
 

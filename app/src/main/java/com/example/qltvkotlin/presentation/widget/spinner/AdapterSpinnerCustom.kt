@@ -2,10 +2,10 @@ package com.example.qltvkotlin.presentation.widget.spinner
 
 import android.annotation.SuppressLint
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.example.qltvkotlin.presentation.extension.bindingOf
 import com.example.qltvkotlin.databinding.ItemListSpinnerBinding
-import com.example.qltvkotlin.feature.main.adapter.CustomViewItemList
+import com.example.qltvkotlin.presentation.extension.bindingOf
 import com.example.qltvkotlin.presentation.extension.onClick
 
 class AdapterSpinnerCustom(rycView: RecyclerView) :
@@ -22,7 +22,7 @@ class AdapterSpinnerCustom(rycView: RecyclerView) :
             val itemList = mList[position]
             binding.name1.text = itemList.nameKey
             binding.name2.text = itemList.status
-            if (itemList.status.contains("Hết Hạn")||itemList.status.contains("Đã Chọn")) {
+            if (itemList.status.contains("Hết Hạn") || itemList.status.contains("Đã Chọn")) {
                 itemView.isEnabled = false
                 itemView.alpha = 0.5f
             }
@@ -52,6 +52,6 @@ class AdapterSpinnerCustom(rycView: RecyclerView) :
 
     init {
         rycView.adapter = this
-        rycView.addItemDecoration(CustomViewItemList.item)
+        rycView.addItemDecoration(DividerItemDecoration(rycView.context, RecyclerView.HORIZONTAL))
     }
 }

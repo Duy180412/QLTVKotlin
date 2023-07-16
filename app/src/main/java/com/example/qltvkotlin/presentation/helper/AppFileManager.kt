@@ -3,7 +3,7 @@ package com.example.qltvkotlin.presentation.helper
 import android.app.Application
 import android.net.Uri
 import androidx.core.content.FileProvider
-import com.example.qltvkotlin.feature.helper.Role
+import com.example.qltvkotlin.domain.enumeration.Role
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream

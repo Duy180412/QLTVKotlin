@@ -31,4 +31,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Tên</string>
+    <string name="identify">Chứng minh thư</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="expired_date">Expired Date</string>
 </resources>

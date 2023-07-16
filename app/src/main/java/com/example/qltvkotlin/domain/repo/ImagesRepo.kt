@@ -1,10 +1,10 @@
 package com.example.qltvkotlin.domain.repo
 
 import android.net.Uri
+import com.example.qltvkotlin.domain.enumeration.Role
 import com.example.qltvkotlin.domain.model.IImage
 import com.example.qltvkotlin.domain.model.IsImageUri
 import com.example.qltvkotlin.domain.model.IsImageUrl
-import com.example.qltvkotlin.feature.helper.Role
 import com.example.qltvkotlin.presentation.helper.AppFileManager
 
 class ImagesRepo {

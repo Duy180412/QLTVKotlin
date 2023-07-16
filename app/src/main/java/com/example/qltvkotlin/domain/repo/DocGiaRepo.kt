@@ -1,7 +1,8 @@
 package com.example.qltvkotlin.domain.repo
 
-import com.example.qltvkotlin.data.model.DocGiaDTO
 import com.example.qltvkotlin.data.datasource.roomdata.ThuVienDataRepo
+import com.example.qltvkotlin.data.model.DocGiaDTO
+import com.example.qltvkotlin.domain.enumeration.Role
 import com.example.qltvkotlin.domain.model.IDocGia
 import com.example.qltvkotlin.domain.model.IDocGiaGet
 import com.example.qltvkotlin.domain.model.IDocGiaItem
@@ -9,9 +10,8 @@ import com.example.qltvkotlin.domain.model.IDocGiaSet
 import com.example.qltvkotlin.domain.model.IImage
 import com.example.qltvkotlin.domain.model.createImagesFromUrl
 import com.example.qltvkotlin.domain.model.getDateNow
-import com.example.qltvkotlin.feature.helper.Role
-import com.example.qltvkotlin.feature.helper.spinner.IItemSpinner
 import com.example.qltvkotlin.presentation.extension.dateFromString
+import com.example.qltvkotlin.presentation.widget.spinner.IItemSpinner
 
 
 class DocGiaRepo {
@@ -45,7 +45,7 @@ class DocGiaRepo {
     }
 
     suspend fun getInfoFullDocGiaDto(cmnd: String): DocGiaDTO? {
-        val docGia = thuVien.getDocGiaByCmnd(cmnd)?: return null
+        val docGia = thuVien.getDocGiaByCmnd(cmnd) ?: return null
         val muonSach = thuVien.getMuonSachByCmnd(cmnd)
         muonSach?.let {
             docGia.soLuongMuon = muonSach.danhSachMuon.sumOf { it.soLuongMuon }.toString()
@@ -101,7 +101,7 @@ class DocGiaRepo {
 
     suspend fun getDocGiaReadOnly(cmnd: String?): IDocGia {
         cmnd ?: return object : IDocGiaGet {}
-        val docGia = getInfoFullDocGiaDto(cmnd)?: return object : IDocGiaGet {}
+        val docGia = getInfoFullDocGiaDto(cmnd) ?: return object : IDocGiaGet {}
         return createDocGiaOnly(docGia)
     }
 
@@ -154,7 +154,6 @@ class DocGiaRepo {
         return if (date > getDateNow()) "Đã Đăng Kí"
         else "Hết Hạn"
     }
-
 
 
     companion object {

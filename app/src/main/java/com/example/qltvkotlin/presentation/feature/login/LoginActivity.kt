@@ -11,7 +11,7 @@ import com.example.qltvkotlin.databinding.ActivityLoginBinding
 import com.example.qltvkotlin.domain.model.HasIsValid
 import com.example.qltvkotlin.domain.model.IAccount
 import com.example.qltvkotlin.domain.repo.FetchAccountCase
-import com.example.qltvkotlin.domain.usecase.LoginCase
+import com.example.qltvkotlin.domain.usecase.xacthuc.LoginCase
 import com.example.qltvkotlin.presentation.extension.launch
 import com.example.qltvkotlin.presentation.extension.bindTo
 import com.example.qltvkotlin.presentation.extension.cast
